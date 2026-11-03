@@ -5,45 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f3f4f6;
-        }
-        .login-card {
-            background: #ffffff;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            max-width: 400px;
-        }
+        body { font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f3f4f6; }
+        .login-card { background: #ffffff; padding: 2.5rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); width: 100%; max-width: 400px; }
         h2 { text-align: center; margin: 0 0 1.5rem; color: #111827; }
         .form-group { margin-bottom: 1.25rem; }
         label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500; color: #374151; }
-        input {
-            width: 100%; padding: 0.75rem;
-            border: 1px solid #d1d5db; border-radius: 8px;
-            box-sizing: border-box; font-size: 1rem;
-        }
+        input { width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
         input:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
-        button {
-            width: 100%; padding: 0.75rem;
-            background-color: #4f46e5; color: #fff;
-            border: none; border-radius: 8px;
-            font-size: 1rem; font-weight: 600;
-            cursor: pointer; margin-top: 0.5rem;
-        }
+        button { width: 100%; padding: 0.75rem; background-color: #4f46e5; color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 0.5rem; }
         button:hover { background-color: #4338ca; }
-        #message {
-            margin-top: 1rem; padding: 0.75rem;
-            border-radius: 6px; font-size: 0.875rem;
-            display: none;
-        }
+        #message { margin-top: 1rem; padding: 0.75rem; border-radius: 6px; font-size: 0.875rem; display: none; }
         .error { background: #fee2e2; color: #991b1b; }
         .success { background: #dcfce7; color: #166534; }
     </style>
@@ -67,29 +38,28 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } 
-             from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+
+    //APIKEY FIREBASE
         const firebaseConfig = {
-  apiKey: "AIzaSyCZerv1iego9a5hlYKORDOdtyWgWFEy2-U",
-  authDomain: "project-web-4da26.firebaseapp.com",
-  projectId: "project-web-4da26",
-  storageBucket: "project-web-4da26.firebasestorage.app",
-  messagingSenderId: "67668666228",
-  appId: "1:67668666228:web:b6db836ee2ffbd23376e21",
-  measurementId: "G-S806SRPV63"
-};
+            apiKey: "AIzaSyCZerv1iego9a5hlYKORDOdtyWgWFEy2-U",
+            authDomain: "project-web-4da26.firebaseapp.com",
+            projectId: "project-web-4da26",
+            storageBucket: "project-web-4da26.firebasestorage.app",
+            messagingSenderId: "67668666228",
+            appId: "1:67668666228:web:b6db836ee2ffbd23376e21",
+            measurementId: "G-S806SRPV63"
+        };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        const form = document.getElementById('loginForm');
-        const message = document.getElementById('message');
-
-        form.addEventListener('submit', async (e) => {
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
             message.style.display = 'none';
 
             try {
@@ -97,11 +67,9 @@
                 message.textContent = '✅ Inicio de sesión exitoso. Redirigiendo...';
                 message.className = 'success';
                 message.style.display = 'block';
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1000);
+                setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
             } catch (error) {
-                message.textContent = '❌ Please contact Admin';
+                message.textContent = '❌ Wrong password or Email';
                 message.className = 'error';
                 message.style.display = 'block';
             }
